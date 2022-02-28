@@ -33,17 +33,17 @@ class _MyHomePageState extends State<MyHomePage> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   var threeShuffleNumber = [];
 
-  int result = 0;
-  String msg = "";
+  int score = 0;
+  String message = "";
   var toChoose = 0;
 
   void compareNumber(index) {
     if (toChoose != threeShuffleNumber[index]) {
-      result = 0;
-      msg = "Incorrect";
+      score = 0;
+      message = "Incorrect";
     } else {
-      result += 10;
-      msg = "Correct";
+      score += 10;
+      message = "Correct";
     }
   }
 
@@ -66,7 +66,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
-            Text("Please select ${toChoose}"),
+            Text("Please select : $toChoose"),
             InkWell(
               highlightColor: Colors.orange.withOpacity(0.5),
               splashColor: Colors.red.withOpacity(0.5),
@@ -129,13 +129,19 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Your answer is : ${msg}"),
+              child: Text("Your answer is : $message"),
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextButton(
-                onPressed: () {},
-                child: const Text('Next'),
+                onPressed: () {
+                  setState(() {
+                    if (score != 0) {
+                      score = 0;
+                    }
+                  });
+                },
+                child: const Text('Restart'),
                 style: TextButton.styleFrom(
                   primary: Colors.black,
                   backgroundColor: Colors.blue,
@@ -144,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: Text("Score : ${result}"),
+              child: Text("Score : $score"),
             ),
           ],
         ),
