@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }
@@ -31,19 +31,30 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  List<int> shuffleNumber = [];
+  var threeShuffleNumber = [];
 
   int result = 0;
   String msg = "";
+  var toChoose = 0;
+
+  void compareNumber(index) {
+    if (toChoose != threeShuffleNumber[index]) {
+      result = 0;
+      msg = "Incorrect";
+    } else {
+      result += 10;
+      msg = "Correct";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     numbers.shuffle();
-    shuffleNumber = numbers.take(3).toList();
-    shuffleNumber.shuffle();
+    threeShuffleNumber = numbers.take(3).toList();
+    threeShuffleNumber.shuffle();
 
-    final _random = new Random();
-    var toChoose = shuffleNumber[_random.nextInt(shuffleNumber.length)];
+    final _random = Random();
+    toChoose = threeShuffleNumber[_random.nextInt(threeShuffleNumber.length)];
 
     return Scaffold(
       appBar: AppBar(
@@ -61,13 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               splashColor: Colors.red.withOpacity(0.5),
               onTap: () {
                 setState(() {
-                  if (toChoose != shuffleNumber[0]) {
-                    result = 0;
-                    msg = "Incorrect";
-                  } else {
-                    result += 10;
-                    msg = "Correct";
-                  }
+                  compareNumber(0);
                 });
               },
               child: Ink(
@@ -78,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: Border.all(
                         width: 2, color: Colors.blue.withOpacity(0.5)),
                     image: DecorationImage(
-                        image: AssetImage("images/${shuffleNumber[0]}.png"))),
+                        image:
+                            AssetImage("images/${threeShuffleNumber[0]}.png"))),
               ),
             ),
             InkWell(
@@ -86,13 +92,7 @@ class _MyHomePageState extends State<MyHomePage> {
               splashColor: Colors.red.withOpacity(0.5),
               onTap: () {
                 setState(() {
-                  if (toChoose != shuffleNumber[1]) {
-                    result = 0;
-                    msg = "Incorrect";
-                  } else {
-                    result += 10;
-                    msg = "Correct";
-                  }
+                  compareNumber(1);
                 });
               },
               child: Ink(
@@ -103,7 +103,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: Border.all(
                         width: 2, color: Colors.blue.withOpacity(0.5)),
                     image: DecorationImage(
-                        image: AssetImage("images/${shuffleNumber[1]}.png"))),
+                        image:
+                            AssetImage("images/${threeShuffleNumber[1]}.png"))),
               ),
             ),
             InkWell(
@@ -111,13 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
               splashColor: Colors.red.withOpacity(0.5),
               onTap: () {
                 setState(() {
-                  if (toChoose != shuffleNumber[2]) {
-                    result = 0;
-                    msg = "Incorrect";
-                  } else {
-                    result += 10;
-                    msg = "Correct";
-                  }
+                  compareNumber(2);
                 });
               },
               child: Ink(
@@ -128,7 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     border: Border.all(
                         width: 2, color: Colors.blue.withOpacity(0.5)),
                     image: DecorationImage(
-                        image: AssetImage("images/${shuffleNumber[2]}.png"))),
+                        image:
+                            AssetImage("images/${threeShuffleNumber[2]}.png"))),
               ),
             ),
             Padding(
