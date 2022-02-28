@@ -138,6 +138,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   setState(() {
                     if (score != 0) {
                       score = 0;
+                      message = "";
                     }
                   });
                 },
